@@ -152,6 +152,112 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-hexo-blog-init" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2021/01/03/hexo-blog-init/">Create your own blog</a>
+    </h1>
+  
+
+        
+        <a href="/2021/01/03/hexo-blog-init/" class="archive-article-date">
+  	<time datetime="2021-01-03T11:45:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-01-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hexo-Blog-in-windows10"><a href="#Hexo-Blog-in-windows10" class="headerlink" title="Hexo Blog in windows10"></a>Hexo Blog in windows10</h2><p>​    本文主要介绍利用hexo工具，将个人博客部署到github上，过程大体分为7步：</p>
+<h3 id="1-相关软件的安装"><a href="#1-相关软件的安装" class="headerlink" title="1.相关软件的安装"></a>1.相关软件的安装</h3><p>​        使用hexo，需要用到两个软件，一是git，二是node，软件可以从官网上下载，也可以下载百度云安装包 <a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1uW4gEzVN546sYsQ8WAsB5w">https://pan.baidu.com/s/1uW4gEzVN546sYsQ8WAsB5w</a>  提取码：2333 。</p>
+<p>​        下载之后进行安装，基本上除了安装路径以及git上如图的这个选项勾选为<strong>Use windows’ default console window</strong>，其他的配置都是默认即可。</p>
+<p><img src="image/git.png"></p>
+<h3 id="2-部署hexo环境"><a href="#2-部署hexo环境" class="headerlink" title="2.部署hexo环境"></a>2.部署hexo环境</h3><p>​            首先创建一个目录，这里取名为blog，在我的E盘blog文件夹下，所以它的路径是E:/blog/blog</p>
+<p>​            win+R打开cmd命令终端，定位到blog文件夹下，依次输入下列指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init <span class="string">&quot;blog-name&quot;</span>    //<span class="string">&quot;blog-name&quot;</span> 替换为你blog的名字，比如hexo init water</span><br><span class="line">$ <span class="built_in">cd</span> <span class="string">&quot;blog-name&quot;</span>      //进入到你blog的目录</span><br><span class="line">$ npm intsall</span><br><span class="line">$ hexo server   //也可以简写为 hexo s  这样打开它弹出来的链接就可以在本地访问博客网页了</span><br></pre></td></tr></table></figure>
+<p>​            可能有的时候会下载不成功，可能因为网站是国外的。。。</p>
+<h3 id="3-创建github仓库"><a href="#3-创建github仓库" class="headerlink" title="3.创建github仓库"></a>3.创建github仓库</h3><p>​            假设你已经有了一个github账号，新建一个Repository，将该仓库的名字命名为 “github用户名.github.io”,例如你的github用户名为water，那就是water.github.io ,命名后点击Add a README file 然后点击绿色按钮创建仓库。</p>
+<p>​            在这个仓库下创建一个index.html文件，内容“Hello，world” 。</p>
+<p><img src="image%5Cindex.png"></p>
+<p>​            回到windows终端，输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save  </span><br></pre></td></tr></table></figure>
+
+
+<h3 id="4-获取网址公钥"><a href="#4-获取网址公钥" class="headerlink" title="4.获取网址公钥"></a>4.获取网址公钥</h3><p>​        在git的安装目录下打开git-bash.exe</p>
+<p> <img src="image/gitbash.png"></p>
+<p>​        依次输入下列指令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git config --user.name <span class="string">&quot;water&quot;</span>  //将water替换为你自己的github名字</span><br><span class="line">$ git config --user.email <span class="string">&quot;water@qq.com&quot;</span>  //将邮箱替换为你在github上验证的邮箱</span><br><span class="line">$ ssh-keygen -t rsa -C <span class="string">&quot;water@qq.com&quot;</span>    //获取公钥，同理替换邮箱</span><br></pre></td></tr></table></figure>
+<p>​        然后选择公钥存放的位置，输入密码（好像是任意密码就可以，不像有的博主说是github密码），然后找到存放rsa的文件路径，用记事本打开id_rsa.pub文件，复制里面的内容。</p>
+<p>​        打开你的github网页，在Settings/SSH and GPG keys 选择添加ssh key</p>
+<p><img src="image/key.png"></p>
+<p>​        将复制的内容粘贴到key方框格中，点击Add SSH key</p>
+<h3 id="5-修改-config-yml文件"><a href="#5-修改-config-yml文件" class="headerlink" title="5.修改 _config.yml文件"></a>5.修改 _config.yml文件</h3><p>​        在你的本地博客的目录下，使用编辑软件打开_config.yml文件，在文件的最下方添加repository和branch，以及修改type为git</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/one-command-deployment</span></span><br><span class="line"><span class="comment">## repository 即你的github仓库地址加.git</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line"> <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line"> <span class="attr">repository:</span> <span class="string">https://github.com/water/water.github.io.git</span>   </span><br><span class="line"> <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+<p>​        在16行，将url修改为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># URL</span></span><br><span class="line"><span class="comment">## If your site is put in a subdirectory, set url as &#x27;http://example.com/child&#x27; and root as &#x27;/child/&#x27;</span></span><br><span class="line"><span class="attr">url:</span> <span class="string">https://water.github.io</span>    <span class="comment">## 即你的博客地址</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="6-快速开始"><a href="#6-快速开始" class="headerlink" title="6.快速开始"></a>6.快速开始</h3><p>​        将你的仓库的默认branch修改为master </p>
+<p>​    <img src="/image/master.png" style="zoom:50%;" />    </p>
+<p>​        cmd到本地blog的文件夹下，执行下列命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo cl       // clean</span><br><span class="line">$ hexo g        // generation</span><br><span class="line">$ hexo d        // deployment 需要输入github账号密码</span><br></pre></td></tr></table></figure>
+<p>​        然后再打开博客网址water.github.io就可以看到博客网页呈现了。</p>
+<h3 id="7-快速更换主题yilia"><a href="#7-快速更换主题yilia" class="headerlink" title="7.快速更换主题yilia"></a>7.快速更换主题yilia</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> https://github.io/litten/hexo-theme-yilia.git themes/yilia</span><br></pre></td></tr></table></figure>
+<p>​        将_config.yml的主题theme从landscape改成yilia就可以了。再：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ hexo cl       // clean</span><br><span class="line">$ hexo g        // generation</span><br><span class="line">$ hexo d        // deployment 需要输入github账号密码</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+<p>​        </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2021/01/03/hexo-blog-init/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
