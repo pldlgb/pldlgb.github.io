@@ -16,7 +16,7 @@
 <meta property="og:description" content="Git 简介​        Git是linus团队花两周时间用C语言写的一个版本控制系统，牛啊！与CVS和SVN等集中式的版本管理系统不同，Git是分布式的版本控制系统。集中式的往往需要联网才能工作，因为版本库集中存放于中央服务器，要先从中央服务器取得最新的代码版本才能开始干活，干完再推到中央服务器。对于这两种版本管理系统还有很多的不同。简单的说就是，集中式不行！分布式行！Git行！ ​">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-03-26T08:28:23.000Z">
-<meta property="article:modified_time" content="2021-03-27T08:41:35.154Z">
+<meta property="article:modified_time" content="2021-03-27T13:40:11.821Z">
 <meta property="article:author" content="water">
 <meta property="article:tag" content="gitcommand;github">
 <meta name="twitter:card" content="summary">
@@ -222,7 +222,111 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -- test.txt  <span class="comment"># git checkout 其实就是仓库（版本库）里的版本替换工作区里的版本，无论工作区的修改还是删除都可以一键还原</span></span><br></pre></td></tr></table></figure>
 
 
-<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2>
+<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><h3 id="1-添加远程库"><a href="#1-添加远程库" class="headerlink" title="1.添加远程库"></a>1.添加远程库</h3><p>现在的情形的你在本地已经有了一个仓库，那么怎么将本地的仓库同步到远程的Github仓库呢？</p>
+<p>第一步，<strong>“创建远程仓库”</strong>，在GitHub创建一个与本地同名（Gitlearn）的仓库，（其实不确定是不是一定要同名）；</p>
+<p>第二步，**”关联远程仓库”**，在本地的仓库下运行命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote add origin git@github.com:water/Gitlearn.git</span><br></pre></td></tr></table></figure>
+<p><strong>water</strong>替换为自己的github账号名，否则虽然可以关联，但是不可以推送，因为SSH KEY公钥不在我的账户列表中。</p>
+<p>关联后，远程库的名字就是<strong>origin</strong>，也即是GitHub的默认名字，你也可以修改为其他，但是<strong>origin</strong>已经让人习惯了，别人一看这个名字就知道是远程库了。</p>
+<p>第三步，<strong>“把本地库内容推送到远程”</strong>，用<strong>git push</strong>指令，实际上是把当前分支master推送到远程。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push -u origin master</span><br></pre></td></tr></table></figure>
+<p>由于远程库是空的，第一次推送<strong>master</strong>分支时，加上了**-u<strong>参数，Git不仅会把本地的</strong>master<strong>分支内容推送到远程新的</strong>master<strong>分支，还会把本地的</strong>master<strong>分支和远程的</strong>master<strong>分支关联起来，在以后的</strong>push<strong>或者</strong>pull**的时候就可以简化命令。</p>
+<p>从现在开始，只要本地做了提交，就可以通过命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin master</span><br></pre></td></tr></table></figure>
+<p>把本地的<strong>master</strong>分支的最新内容修改推送到<strong>GitHub</strong>。</p>
+<ul>
+<li><p>查看远程库信息<strong>git remote -v</strong></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote -v</span><br></pre></td></tr></table></figure></li>
+<li><p>删除远程关联<strong>git remote rm origin</strong>:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git remote rm origin   <span class="comment"># origin为名字</span></span><br></pre></td></tr></table></figure>
+<p>此时远程库依然存在，不过是链接绑定断了。</p>
+</li>
+</ul>
+<h3 id="2-从远程库克隆"><a href="#2-从远程库克隆" class="headerlink" title="2.从远程库克隆"></a>2.从远程库克隆</h3><p>假设我们从零开发，那么最好的方式是先创建远程库，然后，从远程库克隆。</p>
+<p>假如你已经新建了一个远程库，下一步是用命令<strong>git clone</strong>克隆一个本地库：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">clone</span> git@github.com:water/Gitlearn2.git</span><br></pre></td></tr></table></figure>
+<p>Git支持多种协议，包括https，但ssh协议速度最快。</p>
+<h2 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h2><h3 id="1-创建和合并分支"><a href="#1-创建和合并分支" class="headerlink" title="1.创建和合并分支"></a>1.创建和合并分支</h3><p>首先，创建<strong>dev</strong>分支，然后切换到<strong>dev</strong>分支：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout -b dev</span><br></pre></td></tr></table></figure>
+<p>git checkout 命令加-b参数表示创建并切换，相当于以下两条命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git branch dev</span><br><span class="line">$ git checkout dev</span><br></pre></td></tr></table></figure>
+<p>然后用<strong>git branch</strong>命令查看当前分支：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch</span><br></pre></td></tr></table></figure>
+<p>当前分支前面会有一个*****号，即下来的所有提交都会在此分支上完成。</p>
+<p>如果要切换为<strong>master</strong>,则：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
+<p>将<strong>dev</strong>分支上的修改合并到<strong>master</strong>分支上：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git merge dev</span><br></pre></td></tr></table></figure>
+<p>合并完成后，删除<strong>dev</strong>分支：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -d dev</span><br></pre></td></tr></table></figure>
+<h4 id="switch"><a href="#switch" class="headerlink" title="switch"></a>switch</h4><p>因为切换分支git checkout <branch>和git checkout – <file>是同一个命令，但是确两种作用，所以新版本的Git也提供了新的<strong>git switch</strong>命令来切换分支：</file></branch></p>
+<p>创建并切换到新的dev分支，可以使用：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git switch -c dev</span><br></pre></td></tr></table></figure>
+<p>直接切换到已有的<strong>master</strong>分支，可以使用：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git switch master</span><br></pre></td></tr></table></figure>
+<h3 id="2-解决冲突"><a href="#2-解决冲突" class="headerlink" title="2.解决冲突"></a>2.解决冲突</h3><p>当Git无法自动合并分支的时候，就必须首先解决冲突。解决冲突就是把Git合并失败的文件手动编辑成我们希望的内容，再提交。</p>
+<p>用<strong>git log –gragh</strong>可以看到分支合并图：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git <span class="built_in">log</span> --gragh --pretty=oneline --abbrev-commit</span><br></pre></td></tr></table></figure>
+<h3 id="3-分支管理策略"><a href="#3-分支管理策略" class="headerlink" title="3.分支管理策略"></a>3.分支管理策略</h3><p>通常合并分支的时候，Git会开启<strong>FF</strong>(Fast Forward)模式，在这种模式下，删除分支后，会丢掉分支信息。</p>
+<p>如果禁用<strong>FF</strong>模式，Git就会在merge的时候生成一个新的commit，这样，从分支历史上就可以看到分支信息。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ git switch -c dev</span><br><span class="line">$ git add readme.txt</span><br><span class="line">$ git commit -m <span class="string">&quot;add merge&quot;</span></span><br><span class="line">$ git switch master</span><br><span class="line">$ git merge --no-ff -m <span class="string">&quot;no ff merge&quot;</span> dev</span><br></pre></td></tr></table></figure>
+<h3 id="4-Bug分支"><a href="#4-Bug分支" class="headerlink" title="4.Bug分支"></a>4.Bug分支</h3><p>我们会通过创建新的bug分支进行修复，然后合并，最后删除；</p>
+<p>当手头工作没有完成时，先把工作现场<code>git stash</code>一下，然后去修复bug，修复后，再<code>git stash pop</code>，回到工作现场</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash</span><br></pre></td></tr></table></figure>
+<p><code>git stash list</code>命令查看工作现场</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git stash list</span><br></pre></td></tr></table></figure>
+<p><code>git stash apply </code>恢复现场，<code>git stash drop</code>删除；<code>git stash pop</code>恢复的同时删除stash的内容：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ git stash apply</span><br><span class="line">$ git stash drop</span><br><span class="line">$ git stash pop</span><br></pre></td></tr></table></figure>
+<p><code>git cherry-pick &lt;commit&gt;</code>命令，把bug提交的修改“复制”到当前分支，避免重复劳动。</p>
+<h3 id="5-Feature分支"><a href="#5-Feature分支" class="headerlink" title="5.Feature分支"></a>5.Feature分支</h3><p>开发一个新的feature，最好新建一个分支；</p>
+<p>如果要丢弃一个没有被合并过的分支，可以通过：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git branch -D &lt;name&gt;</span><br></pre></td></tr></table></figure>
+<p>强行删除</p>
+<h3 id="6-多人协助"><a href="#6-多人协助" class="headerlink" title="6.多人协助"></a>6.多人协助</h3><p>多人协作的工作模式通常是这样：</p>
+<ol>
+<li>首先，可以试图用<code>git push origin &lt;branch-name&gt;</code>推送自己的修改；</li>
+<li>如果推送失败，则因为远程分支比你的本地更新，需要先用<code>git pull</code>试图合并；</li>
+<li>如果合并有冲突，则解决冲突，并在本地提交；</li>
+<li>没有冲突或者解决掉冲突后，再用<code>git push origin &lt;branch-name&gt;</code>推送就能成功！</li>
+</ol>
+<p>如果<code>git pull</code>提示<code>no tracking information</code>，则说明本地分支和远程分支的链接关系没有创建，用命令<code>git branch --set-upstream-to &lt;branch-name&gt; origin/&lt;branch-name&gt;</code>。</p>
+<p>这就是多人协作的工作模式，一旦熟悉了，就非常简单</p>
+<p><strong>tips：</strong></p>
+<ul>
+<li>查看远程库信息，使用<code>git remote -v</code>；</li>
+<li>本地新建的分支如果不推送到远程，对其他人就是不可见的；</li>
+<li>从本地推送分支，使用<code>git push origin branch-name</code>，如果推送失败，先用<code>git pull</code>抓取远程的新提交；</li>
+<li>在本地创建和远程分支对应的分支，使用<code>git checkout -b branch-name origin/branch-name</code>，本地和远程分支的名称最好一致；</li>
+<li>建立本地分支和远程分支的关联，使用<code>git branch --set-upstream branch-name origin/branch-name</code>；</li>
+<li>从远程抓取分支，使用<code>git pull</code>，如果有冲突，要先处理冲突。</li>
+</ul>
+<h3 id="7-Rebase"><a href="#7-Rebase" class="headerlink" title="7.Rebase"></a>7.Rebase</h3><ul>
+<li>rebase操作可以把本地未push的分叉提交历史整理成直线；</li>
+<li>rebase的目的是使得我们在查看历史提交的变化时更容易，因为分叉的提交需要三方对比。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git rebase</span><br></pre></td></tr></table></figure>
+<h2 id="标签管理"><a href="#标签管理" class="headerlink" title="标签管理"></a>标签管理</h2><p>tag就是一个让人容易记住的有意义的名字，它跟某个commit绑在一起。</p>
+<h3 id="1-创建标签"><a href="#1-创建标签" class="headerlink" title="1.创建标签"></a>1.创建标签</h3><p>首先，切换到需要打标签的分支上：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git checkout master</span><br></pre></td></tr></table></figure>
+<p>命令<code>git tag &lt;name&gt;</code>打标签：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git tag v0.1</span><br><span class="line">$ git tag commit_id &lt;name&gt;</span><br></pre></td></tr></table></figure>
+<p><code>git tag</code>查看标签，<code>git show &lt;tagname&gt;</code>查看标签信息：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git tag</span><br><span class="line">$ git show v0.1</span><br></pre></td></tr></table></figure>
+<p>还可以创建带有说明的标签，用<code>-a</code>指定标签名，<code>-m</code>指定说明文字：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ git tag -a v0.1 -m <span class="string">&quot;version 0.1 released&quot;</span> commit_id</span><br></pre></td></tr></table></figure>
+<h3 id="2-操作标签"><a href="#2-操作标签" class="headerlink" title="2.操作标签"></a>2.操作标签</h3><ul>
+<li>命令<code>git push origin &lt;tagname&gt;</code>可以推送一个本地标签；</li>
+<li>命令<code>git push origin --tags</code>可以推送全部未推送过的本地标签；</li>
+<li>命令<code>git tag -d &lt;tagname&gt;</code>可以删除一个本地标签；</li>
+<li>命令<code>git push origin :refs/tags/&lt;tagname&gt;</code>可以删除一个远程标签。</li>
+</ul>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin v0.1</span><br><span class="line">$ git push origin --tags</span><br><span class="line">$ git tag -d v0.1</span><br><span class="line">$ git push origin :refs/tags/v0.1</span><br></pre></td></tr></table></figure>
+<h2 id="使用Github"><a href="#使用Github" class="headerlink" title="使用Github"></a>使用Github</h2><ul>
+<li>在GitHub上，可以任意Fork开源仓库；</li>
+<li>自己拥有Fork后的仓库的读写权限；</li>
+<li>可以推送pull request给官方仓库来贡献代码。</li>
+</ul>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2>
       
 
       
