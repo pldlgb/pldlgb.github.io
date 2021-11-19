@@ -23,19 +23,19 @@
 <meta property="og:site_name" content="water4shea">
 <meta property="og:description" content="前言​        对于一个合格的程序员来说，遇到一个问题，首先ctrl-c”问题”，然后打开谷歌，ctrl-v“问题”，然后回车。是的，回首这大学四年的学习，除了基本的理论知识，我觉得对我来说，提高最多的是我的搜索能力，我打算改天写一篇博客来详细地讲一下遇到问题我是如何搜索，在哪搜索，怎样搜索的（比如如何提取关键词）。但是今天先讲一下这个，如何将B站的视频下载下来并转成音频？——我是这样做的。">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/python.png">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/install1.png">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/install2.png">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/youget.png">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/bili.png">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/cmd.png">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/down.png">
-<meta property="og:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/WDGAG.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/python.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/install1.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/install2.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/youget.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/bili.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/cmd.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/down.png">
+<meta property="og:image" content="https://pldlgb.github.io/2021/VideoDownload/WDGAG.png">
 <meta property="article:published_time" content="2021-01-09T14:39:38.000Z">
 <meta property="article:modified_time" content="2021-10-31T06:12:52.676Z">
 <meta property="article:author" content="water">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pldlgb.github.io/2021/01/09/VideoDownload/python.png">
+<meta name="twitter:image" content="https://pldlgb.github.io/2021/VideoDownload/python.png">
   
   <title>如何将B站的视频下载下来并转成音频？ 一种一劳永逸的解决方案 - water4shea</title>
 
@@ -244,13 +244,13 @@
 <p>​        人生苦短，我用python</p>
 <p>​        所以我们先安装python！这里的版本是<strong>3.9.1</strong></p>
 <p>​        打开官网主页下载安装包   <a target="_blank" rel="noopener" href="https://www.python.org/downloads/">https://www.python.org/downloads/</a></p>
-<p><img src="/2021/01/09/VideoDownload/python.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/python.png" srcset="/img/loading.gif" lazyload></p>
 <p>​        但是可能下载速度有点慢，你也可以直接下载百度网盘里的<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1h7TpQ_X-aCcCwjwTj0lt_w">https://pan.baidu.com/s/1h7TpQ_X-aCcCwjwTj0lt_w</a> 提取码 2306</p>
 <p>​        下载后双击打开，可以看到安装界面，<strong>勾选“Add Python 3.9 to path”</strong>（不然就得配置环境变量，还是相对比较烦的），然后选择<strong>Customer Installation</strong>。</p>
-<p><img src="/2021/01/09/VideoDownload/install1.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/install1.png" srcset="/img/loading.gif" lazyload></p>
 <p>​        然后点击<strong>Next</strong>,直到选择安装路径的地方，将python安装在你储存空间比较大的地方，我将它安装在我电脑的E:python/pythoninstall上。</p>
 <p>再点击<strong>Install</strong>就算安装完成了。</p>
-<p><img src="/2021/01/09/VideoDownload/install2.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/install2.png" srcset="/img/loading.gif" lazyload></p>
 <p>​        安装成功之后把界面叉掉，按ctrl+R，在弹出的方框里输入<strong>cmd</strong>，弹出命令行窗口。输入</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">python -V<br></code></pre></td></tr></table></figure>
 <p>​        出现<strong>Python 3.9.1</strong> 说明安装成功。</p>
@@ -259,21 +259,21 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pip install you-get<br>pip install --upgrade you-get<br>python -m pip install --upgrade pip<br></code></pre></td></tr></table></figure>
 <p>​        如果你想查看一下，you-get是否安装成功，只需要在命令行中再输入</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">pip install you-get <br></code></pre></td></tr></table></figure>
-<p><img src="/2021/01/09/VideoDownload/youget.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/youget.png" srcset="/img/loading.gif" lazyload></p>
 <p>​        </p>
 <p>​        出现这样的字样说明已经是成成的了！！！可以关掉这个命令窗口了</p>
 <hr>
 <h3 id="2-下载视频"><a href="#2-下载视频" class="headerlink" title="2.下载视频"></a>2.下载视频</h3><p>​        比如我们想下载这只<strong>sup cypher</strong>的MV，只需要复制它的链接。</p>
-<p><img src="/2021/01/09/VideoDownload/bili.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/bili.png" srcset="/img/loading.gif" lazyload></p>
 <p>​            然后<strong>打开本地文件夹cmd</strong>，到你打算存放视频的目录下，在地址栏<strong>输入cmd，然后回车</strong>。</p>
-<p><img src="/2021/01/09/VideoDownload/cmd.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/cmd.png" srcset="/img/loading.gif" lazyload></p>
 <p>​        在出现的命令行界面，输入you-get -i 视频链接，比如</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">you-get -i https://www.bilibili.com/video/BV1qx411Y7Ue?from=search&amp;seid=1960173568551417284<br></code></pre></td></tr></table></figure>
-<p><img src="/2021/01/09/VideoDownload/down.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/down.png" srcset="/img/loading.gif" lazyload></p>
 <p>​        你可以按照它的指示，选择你下载视频的格式和清晰度，比如这里我们选择下载一个“高清 720P”，“MP4”版本的视频，即输入对应红色框框的代码</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">you-get --format=dash-flv720 https://www.bilibili.com/video/BV1qx411Y7Ue?from=search&amp;seid=1960173568551417284<br></code></pre></td></tr></table></figure>
 <p>​        可以看到视频被<strong>飞速下载</strong>！进度条迅速拉满！</p>
-<p><img src="/2021/01/09/VideoDownload/WDGAG.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="/2021/VideoDownload/WDGAG.png" srcset="/img/loading.gif" lazyload></p>
 <p>​        然后在本地目录我们就可以看到视频已经出现了。</p>
 <p>​        基本上国内外的视频都可以用you-get下载，下次有需要下载的时候直接打开本地目录的cmd，输入<strong>you-get -i 视频链接</strong> ，再选择下载的选项就可以了。</p>
 <p>如果你知道你想下载的视频的格式，也可以直接输入<strong>you-get –format=dash-flv720 视频链接</strong>，（将 dash-flv720 替换成你想要的）就可以直接下载了。</p>
